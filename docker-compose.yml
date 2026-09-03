@@ -12,5 +12,25 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  redis:
+    image: docker.io/library/redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+
+  minio:
+    image: docker.io/minio/minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: nexo
+      MINIO_ROOT_PASSWORD: nexo_password
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+
 volumes:
   pgdata:
+  miniodata:
