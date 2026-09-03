@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: docker.io/library/postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: nexo
+      POSTGRES_PASSWORD: nexo_password
+      POSTGRES_DB: nexo_sgsst
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
