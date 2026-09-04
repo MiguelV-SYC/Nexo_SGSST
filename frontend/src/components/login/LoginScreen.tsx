@@ -34,7 +34,7 @@ export function LoginScreen() {
       </button>
 
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
-        <div className="relative h-44 w-44 sm:h-56 sm:w-56">
+        <div className="relative h-68 w-68 sm:h-80 sm:w-80">
           <Image
             src="/logo-nexo-mark-white.png"
             alt="Nexo"
@@ -51,10 +51,7 @@ export function LoginScreen() {
           </p>
           <p className="text-lg leading-relaxed text-white">
             Conectamos personas, procesos
-            <br />y decisiones para{" "}
-            <span className="font-semibold text-[#5EEAD4]">
-              entornos más seguros.
-            </span>
+            <br />y decisiones para entornos más seguros.
           </p>
         </div>
       </div>
