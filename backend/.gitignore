@@ -41,6 +41,10 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+!.env.example
+
+# Prisma generated client
+/generated/
 
 # temp directory
 .temp
