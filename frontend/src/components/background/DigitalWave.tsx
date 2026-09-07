@@ -21,11 +21,21 @@ function lerpColor(a: [number, number, number], b: [number, number, number], t: 
   return `${a[0] + (b[0] - a[0]) * t}, ${a[1] + (b[1] - a[1]) * t}, ${a[2] + (b[2] - a[2]) * t}`
 }
 
-// Núcleo de la ola: cian brillante. Borde: azul institucional oscuro.
-const CORE_COLOR: [number, number, number] = [94, 234, 212]
-const EDGE_COLOR: [number, number, number] = [11, 79, 108]
+// Por defecto: núcleo cian brillante, borde azul institucional oscuro
+// (pensado para el fondo navy del login). Otras pantallas pueden pasar su
+// propio par core/edge, ej. los verdes de marca sobre un fondo claro.
+const DEFAULT_CORE_COLOR: [number, number, number] = [94, 234, 212]
+const DEFAULT_EDGE_COLOR: [number, number, number] = [11, 79, 108]
 
-export function DigitalWave() {
+interface DigitalWaveProps {
+  coreColor?: [number, number, number]
+  edgeColor?: [number, number, number]
+}
+
+export function DigitalWave({
+  coreColor = DEFAULT_CORE_COLOR,
+  edgeColor = DEFAULT_EDGE_COLOR,
+}: DigitalWaveProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -121,7 +131,7 @@ export function DigitalWave() {
         const opacity = Math.max(0, baseOpacity * shimmer)
         if (opacity <= 0.01) continue
 
-        ctx.fillStyle = `rgba(${lerpColor(CORE_COLOR, EDGE_COLOR, p.edgeFactor)}, ${opacity})`
+        ctx.fillStyle = `rgba(${lerpColor(coreColor, edgeColor, p.edgeFactor)}, ${opacity})`
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius * (0.85 + 0.15 * shimmer), 0, Math.PI * 2)
         ctx.fill()
@@ -147,7 +157,7 @@ export function DigitalWave() {
       cancelAnimationFrame(frameId)
       observer.disconnect()
     }
-  }, [])
+  }, [coreColor, edgeColor])
 
   return (
     <canvas

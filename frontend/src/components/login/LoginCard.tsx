@@ -1,6 +1,7 @@
 "use client"
 
-import { useId, useState } from "react"
+import { useId, useState, type FormEvent } from "react"
+import { useRouter } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { UserIcon, LockIcon, ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons"
 
@@ -12,9 +13,17 @@ import { Label } from "@/components/ui/label"
 import { LogoMark } from "@/components/login/LogoMark"
 
 export function LoginCard() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const userFieldId = useId()
   const passwordFieldId = useId()
+
+  // TODO: reemplazar por la llamada real de autenticación al backend.
+  // Por ahora, "Ingresar" navega directo a la vista de organizaciones.
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    router.push("/organizaciones")
+  }
 
   return (
     <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#F5F7FA] p-8 shadow-2xl shadow-black/30">
@@ -31,7 +40,7 @@ export function LoginCard() {
         </div>
       </div>
 
-      <form className="mt-6 space-y-4">
+      <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
         <div className="space-y-1.5">
           <Label htmlFor={userFieldId} className="sr-only">
             Usuario
