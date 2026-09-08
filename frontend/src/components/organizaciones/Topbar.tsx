@@ -6,9 +6,22 @@ import {
   Logout03Icon,
 } from "@hugeicons/core-free-icons"
 
-export function Topbar() {
+export interface TopbarProps {
+  /** Gradiente CSS de fondo del topbar. */
+  gradient?: string
+  /** Color del texto del avatar circular (iniciales). */
+  avatarTextColor?: string
+}
+
+export function Topbar({
+  gradient = "linear-gradient(115deg,#0E5C4F,#1C7A6B 45%,#2CA6A4 100%)",
+  avatarTextColor = "#08344A",
+}: TopbarProps) {
   return (
-    <div className="relative flex items-center justify-between overflow-hidden bg-[linear-gradient(115deg,#0E5C4F,#1C7A6B_45%,#2CA6A4_100%)] bg-[length:180%_180%] px-10 py-3.5 [animation:topbar-shift_10s_ease-in-out_infinite]">
+    <div
+      className="relative flex items-center justify-between overflow-hidden bg-[length:180%_180%] px-10 py-3.5 [animation:topbar-shift_10s_ease-in-out_infinite]"
+      style={{ backgroundImage: gradient }}
+    >
       {/* efecto de iluminación */}
       <div className="pointer-events-none absolute -top-[60%] left-[10%] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35),transparent_70%)] blur-[10px]" />
       <div className="pointer-events-none absolute -bottom-[70%] right-[15%] h-[220px] w-[220px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.18),transparent_70%)] blur-[14px]" />
@@ -36,7 +49,10 @@ export function Topbar() {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <div className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-white font-heading text-[13px] font-bold text-[#08344A]">
+          <div
+            className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-white font-heading text-[13px] font-bold"
+            style={{ color: avatarTextColor }}
+          >
             MA
           </div>
           <span className="text-[13px] font-semibold text-white">

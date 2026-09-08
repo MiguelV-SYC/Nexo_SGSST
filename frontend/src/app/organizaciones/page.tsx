@@ -54,7 +54,15 @@ export default function OrganizacionesPage() {
   return (
     <div className="min-h-screen bg-[#F5F7FA]">
       <Topbar />
-      <Hero userName="Miguel Angel" />
+      <Hero
+        title={
+          <>
+            ¡Bienvenido a <span className="text-[#2CA6A4]">Nexo</span>, Miguel
+            Angel!
+          </>
+        }
+        subtitle="Desde aquí puedes acceder y gestionar los Sistemas de Gestión de Seguridad y Salud en el Trabajo de cada una de tus organizaciones."
+      />
 
       <div className="mx-auto max-w-[1280px] px-10 pb-[50px]">
         <div className="mb-4 font-heading text-[19px] font-bold text-[#08344A]">

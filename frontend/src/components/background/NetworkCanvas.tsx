@@ -11,8 +11,9 @@ interface Node {
   glow: boolean
 }
 
-// #2CA6A4 (acento Nexo) en componentes rgb, reutilizado en cada rgba()
-const ACCENT = "44, 166, 164"
+// #2CA6A4 (acento Nexo SST) por defecto; otras verticales (Calidad,
+// Sostenibilidad) pueden pasar su propio color vía la prop `accent`.
+const DEFAULT_ACCENT: [number, number, number] = [44, 166, 164]
 const LINK_DISTANCE = 130
 const AREA_PER_NODE = 7500
 const MIN_NODES = 55
@@ -23,8 +24,13 @@ const MAX_NODES = 150
 const CLUSTER_SHARE = 0.62
 const CLUSTER_COUNT_RANGE: [number, number] = [2, 4]
 
-export function NetworkCanvas() {
+export function NetworkCanvas({
+  accent = DEFAULT_ACCENT,
+}: {
+  accent?: [number, number, number]
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const ACCENT = accent.join(", ")
 
   useEffect(() => {
     const canvasEl = canvasRef.current
@@ -185,7 +191,7 @@ export function NetworkCanvas() {
       cancelAnimationFrame(frameId)
       observer.disconnect()
     }
-  }, [])
+  }, [ACCENT])
 
   return (
     <canvas

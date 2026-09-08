@@ -11,7 +11,15 @@ export default function LoginPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#08344A]">
       <NexoBackground />
-      <LoginScreen />
+      <LoginScreen
+        label="SG-SST"
+        tagline={
+          <>
+            Conectamos personas, procesos
+            <br />y decisiones para entornos más seguros.
+          </>
+        }
+      />
     </div>
   )
 }

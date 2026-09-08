@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useState, type FormEvent } from "react"
+import { useId, useState, type CSSProperties, type FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { UserIcon, LockIcon, ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons"
@@ -12,17 +12,33 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { LogoMark } from "@/components/login/LogoMark"
 
-export function LoginCard() {
+export interface LoginCardProps {
+  /** Ruta a la que navega "Ingresar". */
+  destination?: string
+  /** Color de acento (links, checkbox marcado) en hex. */
+  accentColor?: string
+  /** Color de la palabra "Nexo" en el subtítulo, en hex. */
+  brandColor?: string
+  /** Gradiente CSS del botón "Ingresar". */
+  buttonGradient?: string
+}
+
+// TODO: reemplazar por la llamada real de autenticación al backend.
+// Por ahora, "Ingresar" navega directo a `destination`.
+export function LoginCard({
+  destination = "/organizaciones",
+  accentColor = "#2CA6A4",
+  brandColor = "#0B4F6C",
+  buttonGradient = "linear-gradient(90deg,#0B4F6C,#2CA6A4)",
+}: LoginCardProps) {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const userFieldId = useId()
   const passwordFieldId = useId()
 
-  // TODO: reemplazar por la llamada real de autenticación al backend.
-  // Por ahora, "Ingresar" navega directo a la vista de organizaciones.
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    router.push("/organizaciones")
+    router.push(destination)
   }
 
   return (
@@ -35,7 +51,10 @@ export function LoginCard() {
           </h1>
           <p className="text-sm text-[#2B2E33]/70">
             Ingresa tus credenciales para acceder
-            <br />a la plataforma <span className="font-semibold text-[#0B4F6C]">Nexo</span>
+            <br />a la plataforma{" "}
+            <span className="font-semibold" style={{ color: brandColor }}>
+              Nexo
+            </span>
           </p>
         </div>
       </div>
@@ -98,14 +117,23 @@ export function LoginCard() {
             <Checkbox
               name="remember"
               defaultChecked
-              className="border-[#2B2E33]/25 data-[checked]:border-[#2CA6A4] data-[checked]:bg-[#2CA6A4]"
+              style={{ "--accent-color": accentColor } as CSSProperties}
+              className="border-[#2B2E33]/25 data-[checked]:border-(--accent-color) data-[checked]:bg-(--accent-color)"
             />
             Recordarme
           </label>
-          <a href="#" className="font-medium text-[#2CA6A4] hover:underline">
+          <a
+            href="#"
+            className="font-medium hover:underline"
+            style={{ color: accentColor }}
+          >
             ¿Olvidaste tu contraseña?
           </a>
-          <a href="#" className="font-medium text-[#2CA6A4] hover:underline">
+          <a
+            href="#"
+            className="font-medium hover:underline"
+            style={{ color: accentColor }}
+          >
             Solicitar Acceso
           </a>
         </div>
@@ -114,8 +142,9 @@ export function LoginCard() {
           type="submit"
           className={cn(
             "h-11 w-full rounded-xl text-sm font-bold tracking-wide text-white uppercase",
-            "bg-[linear-gradient(90deg,#0B4F6C,#2CA6A4)] hover:opacity-90"
+            "hover:opacity-90"
           )}
+          style={{ backgroundImage: buttonGradient }}
         >
           Ingresar
         </Button>
