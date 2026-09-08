@@ -1,17 +1,26 @@
 "use client"
 
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import Image from "next/image"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
 import { cn } from "@/lib/utils"
-import { LoginCard } from "@/components/login/LoginCard"
+import { LoginCard, type LoginCardProps } from "@/components/login/LoginCard"
+
+export interface LoginScreenProps {
+  /** Etiqueta corta sobre el lema, ej. "SG-SST" o "SGC". */
+  label: string
+  /** Lema debajo del logo. */
+  tagline: ReactNode
+  loginCard?: LoginCardProps
+}
 
 // Pantalla de login: por defecto solo se ve el hero (logo + lema) sobre el
-// background animado. El botón superior derecho abre/cierra la tarjeta de
-// login, que entra deslizándose desde el borde derecho.
-export function LoginScreen() {
+// background animado (que cada page.tsx coloca detrás vía NexoBackground).
+// El botón superior derecho abre/cierra la tarjeta de login, que entra
+// deslizándose desde el borde derecho.
+export function LoginScreen({ label, tagline, loginCard }: LoginScreenProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -39,7 +48,7 @@ export function LoginScreen() {
             src="/logo-nexo-mark-white.png"
             alt="Nexo"
             fill
-            sizes="224px"
+            sizes="320px"
             className="object-contain"
             priority
           />
@@ -47,12 +56,9 @@ export function LoginScreen() {
 
         <div className="space-y-3">
           <p className="text-sm font-semibold tracking-[0.35em] text-white uppercase">
-            SG-SST
+            {label}
           </p>
-          <p className="text-lg leading-relaxed text-white">
-            Conectamos personas, procesos
-            <br />y decisiones para entornos más seguros.
-          </p>
+          <p className="text-lg leading-relaxed text-white">{tagline}</p>
         </div>
       </div>
 
@@ -67,7 +73,7 @@ export function LoginScreen() {
           open ? "translate-x-0" : "pointer-events-none translate-x-full"
         )}
       >
-        <LoginCard />
+        <LoginCard {...loginCard} />
       </div>
     </>
   )
