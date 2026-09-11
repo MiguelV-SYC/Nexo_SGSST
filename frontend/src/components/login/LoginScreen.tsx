@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 
@@ -25,6 +26,14 @@ export function LoginScreen({ label, tagline, loginCard }: LoginScreenProps) {
 
   return (
     <>
+      <Link
+        href="/"
+        className="absolute top-6 left-6 z-50 flex items-center gap-1.5 text-sm font-semibold text-white hover:opacity-80 md:top-8 md:left-10"
+      >
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
+        Volver
+      </Link>
+
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}

@@ -4,24 +4,24 @@ import { NexoBackground } from "@/components/background/NexoBackground"
 import { LoginScreen } from "@/components/login/LoginScreen"
 
 export const metadata: Metadata = {
-  title: "Iniciar sesión | Nexo Sostenibilidad",
+  title: "Iniciar sesión | Nexo Calidad",
 }
 
-export default function SostenibilidadLoginPage() {
+export default function CalidadLoginPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#08344A]">
       <NexoBackground />
       <LoginScreen
-        label="SOSTENIBILIDAD"
+        label="QUALITY"
         tagline={
           <>
-            Conectamos procesos, recursos y resultados
+            Conectamos procesos, normas y evidencias
             <br />
-            para un planeta más sostenible.
+            para una gestión con excelencia.
           </>
         }
         loginCard={{
-          destination: "/sostenibilidad/syc",
+          destination: "/calidad/syc",
         }}
       />
     </div>

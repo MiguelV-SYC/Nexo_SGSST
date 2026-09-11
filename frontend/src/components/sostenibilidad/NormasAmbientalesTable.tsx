@@ -10,9 +10,9 @@ const GRUPO_STYLES: Record<GrupoNorma, string> = {
 // para dar contexto sin sobrecargar la vista.
 export function NormasAmbientalesTable() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#E1EEDB] bg-white shadow-[0_8px_24px_rgba(11,46,19,0.06)]">
-      <div className="border-b border-[#E1EEDB] px-6 py-4">
-        <div className="font-heading text-base font-bold text-[#0B2E13]">
+    <div className="overflow-hidden rounded-2xl border border-[#E5E9EE] bg-white shadow-[0_8px_24px_rgba(11,79,108,0.06)]">
+      <div className="border-b border-[#E5E9EE] px-6 py-4">
+        <div className="font-heading text-base font-bold text-[#08344A]">
           Marco normativo de referencia
         </div>
         <p className="mt-0.5 text-[12.5px] text-[#6B7280]">
@@ -23,7 +23,7 @@ export function NormasAmbientalesTable() {
 
       <table className="w-full border-collapse text-[13px]">
         <thead>
-          <tr className="border-b border-[#E1EEDB] text-left text-[11.5px] tracking-wide text-[#9CA5B0] uppercase">
+          <tr className="border-b border-[#E5E9EE] text-left text-[11.5px] tracking-wide text-[#9CA5B0] uppercase">
             <th className="px-6 py-2.5 font-semibold">Naturaleza</th>
             <th className="px-3 py-2.5 font-semibold">Ejemplo</th>
             <th className="px-6 py-2.5 text-right font-semibold">Grupo</th>
@@ -35,7 +35,7 @@ export function NormasAmbientalesTable() {
               key={norma.naturaleza}
               className="border-b border-b-[#EEF1F5] last:border-b-0 hover:bg-[#F7FBF4]"
             >
-              <td className="px-6 py-3 font-semibold text-[#0B2E13]">
+              <td className="px-6 py-3 font-semibold text-[#08344A]">
                 {norma.naturaleza}
               </td>
               <td className="px-3 py-3 text-[#6B7280]">{norma.ejemplo}</td>

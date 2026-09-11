@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   Notification03Icon,
@@ -11,11 +12,14 @@ export interface TopbarProps {
   gradient?: string
   /** Color del texto del avatar circular (iniciales). */
   avatarTextColor?: string
+  /** Ruta a la que navega "Salir": el home/login del sistema de gestión actual. */
+  logoutHref?: string
 }
 
 export function Topbar({
   gradient = "linear-gradient(115deg,#0E5C4F,#1C7A6B 45%,#2CA6A4 100%)",
   avatarTextColor = "#08344A",
+  logoutHref = "/login",
 }: TopbarProps) {
   return (
     <div
@@ -67,10 +71,13 @@ export function Topbar({
 
         <div className="h-[30px] w-px bg-white/30" />
 
-        <div className="flex flex-col items-center gap-0.5 text-white/85">
+        <Link
+          href={logoutHref}
+          className="flex flex-col items-center gap-0.5 text-white/85 hover:text-white"
+        >
           <HugeiconsIcon icon={Logout03Icon} size={18} />
           <span className="text-[11px] font-medium">Salir</span>
-        </div>
+        </Link>
       </div>
     </div>
   )
