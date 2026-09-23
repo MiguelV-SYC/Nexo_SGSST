@@ -317,6 +317,52 @@
     padding:8px 13px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-primary);flex:1;justify-content:center;
   }
   .export-btn.excel{color:var(--success-text);}
+
+  /* Hub de Comités — cards de entrada (mismo lenguaje de las vcard del landing, adaptadas al tema claro) */
+  .comite-hub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .comite-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;}
+  .comite-card:hover{transform:translateY(-4px);border-color:var(--comite-c);box-shadow:0 14px 30px -16px rgba(0,0,0,.2);}
+  .comite-card-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--comite-c-bg);color:var(--comite-c);margin-bottom:16px;}
+  .comite-card-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:5px;}
+  .comite-card-sub{font-size:11.5px;color:var(--text-secondary);line-height:1.45;margin-bottom:18px;min-height:32px;}
+  .comite-card-stats{display:flex;gap:18px;padding-top:14px;border-top:1px solid var(--border);margin-bottom:16px;}
+  .comite-card-stat b{display:block;font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--text-primary);}
+  .comite-card-stat span{font-size:10px;color:var(--text-secondary);}
+  .comite-card-cta{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--comite-c);}
+  @media (max-width:1100px){.comite-hub-grid{grid-template-columns:1fr;}}
+
+  /* Detalle de comité — alerta de próximo evento, calendario e integrantes */
+  .comite-alert{display:flex;align-items:center;gap:12px;background:var(--warning-bg);border:1px solid #F0D6A8;border-radius:12px;padding:13px 16px;margin-bottom:16px;cursor:pointer;}
+  .comite-alert svg{color:var(--warning-text);flex-shrink:0;}
+  .comite-alert b{color:var(--warning-text);}
+  .comite-alert .comite-alert-text{font-size:12.5px;color:var(--text-primary);}
+  .comite-alert .comite-alert-sub{font-size:11px;color:var(--text-secondary);margin-top:1px;}
+  .chrono-item.clickable{cursor:pointer;}
+  .chrono-item.clickable:hover .chrono-text{color:var(--primary);}
+  .actividad-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--text-secondary);background:var(--neutral-bg);padding:1px 7px;border-radius:5px;margin-left:6px;}
+
+  /* Editor de acta tipo Word, con firma electrónica */
+  .acta-meta-row{display:flex;gap:20px;flex-wrap:wrap;padding:10px 0 16px;margin-bottom:14px;border-bottom:1px solid var(--border);}
+  .acta-meta-field{font-size:11.5px;}
+  .acta-meta-field span{display:block;color:var(--text-secondary);margin-bottom:2px;}
+  .acta-meta-field b{font-size:12.5px;}
+  .acta-editor-doc{border:1px solid var(--border);border-radius:10px;padding:22px 26px;min-height:220px;font-size:13px;line-height:1.65;color:var(--text-primary);background:#fff;}
+  .acta-editor-doc[contenteditable="true"]{box-shadow:0 0 0 3px var(--primary-tint);}
+  .acta-editor-doc h3{font-family:'Inter Tight',sans-serif;font-size:13.5px;margin:16px 0 6px;}
+  .acta-editor-doc h3:first-child{margin-top:0;}
+  .acta-editor-doc ol,.acta-editor-doc ul{margin:0 0 8px 18px;padding:0;}
+  .acta-editor-doc li{margin-bottom:3px;}
+  .acta-editor-doc table{margin-top:6px;}
+  .acta-editor-doc table td,.acta-editor-doc table th{border:1px solid var(--border);padding:6px 8px;}
+  .acta-firmas-title{font-size:13px;font-weight:700;font-family:'Inter Tight',sans-serif;margin:20px 0 4px;}
+  .acta-firmas-sub{font-size:11.5px;color:var(--text-secondary);margin-bottom:10px;}
+  .acta-firma-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .acta-firma-row:last-child{border-bottom:none;}
+  .acta-firma-info{flex:1;min-width:0;}
+  .acta-firma-name{font-size:12.5px;font-weight:600;}
+  .acta-firma-sub{font-size:11px;color:var(--text-secondary);margin-top:1px;}
+  .acta-firma-btn{font-size:11.5px;font-weight:700;padding:6px 13px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-primary);cursor:pointer;white-space:nowrap;}
+  .acta-firma-btn.signed{background:var(--success-bg);border-color:transparent;color:var(--success-text);cursor:default;}
   .export-btn.pdf{color:var(--danger-text);}
 
   /* FILTRO SEDE (dropdown) */
@@ -840,10 +886,10 @@
         <div class="nav-item" data-view="cumplimiento"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>Cumplimiento normativo</div>
         <div class="nav-item" data-view="matriz"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v4M12 17.5h.01"/></svg></span>Matriz de peligros</div>
         <div class="nav-item" data-view="trabajadores"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg></span>Trabajadores</div>
-        <div class="nav-item" data-view="incidentes"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M4 20l1-4.2L15.5 5.3a1.8 1.8 0 0 1 2.5 0l.7.7a1.8 1.8 0 0 1 0 2.5L8.2 19 4 20z"/><path d="M13.5 7l3.5 3.5"/></svg></span>Incidentes<span class="badge-count">2</span></div>
+        <div class="nav-item" data-view="incidentes"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M4 20l1-4.2L15.5 5.3a1.8 1.8 0 0 1 2.5 0l.7.7a1.8 1.8 0 0 1 0 2.5L8.2 19 4 20z"/><path d="M13.5 7l3.5 3.5"/></svg></span>Incidentes</div>
         <div class="nav-item" data-view="capacitaciones"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/></svg></span>Capacitaciones</div>
         <div class="nav-item" data-view="auditorias"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>Auditorías</div>
-        <div class="nav-item" data-view="acciones"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M4.5 12.5l5 5 10-10.5"/></svg></span>Acciones correctivas<span class="badge-count">5</span></div>
+        <div class="nav-item" data-view="acciones"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M4.5 12.5l5 5 10-10.5"/></svg></span>Acciones correctivas</div>
         <div class="nav-item" data-view="comites"><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 15c2.6.3 4.5 2.2 4.5 5"/></svg></span>Comités</div>
       </div>
 
@@ -1542,28 +1588,161 @@
       </div>
     </div>
 
-    <!-- COMITÉS (nuevo, resuelve 1.1.6, 1.1.7, 1.1.8, 5.1.2 - incluye Brigada de emergencia) -->
+    <!-- COMITÉS — hub de acceso (nuevo, resuelve 1.1.6, 1.1.7, 1.1.8, 5.1.2 - incluye Brigada de emergencia) -->
     <div class="view" id="view-comites">
       <div class="breadcrumb">SYC / Sistema de gestión SST / Comités</div>
-      <div class="header"><div><h1>Comités y equipos SST</h1><div class="subtitle">Resuelve numerales 1.1.6, 1.1.7, 1.1.8 y 5.1.2 · COPASST, Convivencia y Brigada de emergencia en un solo lugar</div></div><div class="header-actions"><button class="btn primary">+ Registrar acta</button></div></div>
+      <div class="header"><div><h1>Comités y equipos SST</h1><div class="subtitle">Resuelve numerales 1.1.6, 1.1.7, 1.1.8 y 5.1.2 · COPASST, COCOLA y Brigada de emergencia en un solo lugar</div></div></div>
+
+      <div class="summary-row">
+        <div class="summary-card"><div class="summary-value">3</div><div class="summary-label">Comités y equipos activos</div></div>
+        <div class="summary-card"><div class="summary-value">18</div><div class="summary-label">Integrantes / brigadistas totales</div></div>
+        <div class="summary-card"><div class="summary-value">25</div><div class="summary-label">Actas registradas</div></div>
+        <div class="summary-card"><div class="summary-value">25 sep</div><div class="summary-label">Próximo hito (Brigada)</div></div>
+      </div>
+
+      <div class="comite-hub-grid">
+        <div class="comite-card" style="--comite-c:var(--primary);--comite-c-bg:var(--primary-tint);" onclick="showView('comites-copasst')">
+          <div class="comite-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="badge b-warning" style="position:absolute;top:24px;right:24px;"><span class="dot"></span>En proceso</span>
+          <div class="comite-card-title">COPASST</div>
+          <div class="comite-card-sub">Comité Paritario de Seguridad y Salud en el Trabajo · Numerales 1.1.6 y 1.1.7 · Periodo 2025–2027</div>
+          <div class="comite-card-stats">
+            <div class="comite-card-stat"><b>6</b><span>Integrantes</span></div>
+            <div class="comite-card-stat"><b>7/12</b><span>Actas</span></div>
+            <div class="comite-card-stat"><b>5/6</b><span>Cap. 50h</span></div>
+          </div>
+          <div class="comite-card-cta">Ingresar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="comite-card" style="--comite-c:var(--hacer);--comite-c-bg:#EAF1FA;" onclick="showView('comites-cocola')">
+          <div class="comite-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 15c2.6.3 4.5 2.2 4.5 5"/></svg></div>
+          <span class="badge b-success" style="position:absolute;top:24px;right:24px;"><span class="dot"></span>Cumple</span>
+          <div class="comite-card-title">COCOLA</div>
+          <div class="comite-card-sub">Comité de Convivencia Laboral · Numeral 1.1.8 · Periodo 2025–2027</div>
+          <div class="comite-card-stats">
+            <div class="comite-card-stat"><b>4</b><span>Integrantes</span></div>
+            <div class="comite-card-stat"><b>9</b><span>Actas</span></div>
+            <div class="comite-card-stat"><b>1</b><span>Casos activos</span></div>
+          </div>
+          <div class="comite-card-cta">Ingresar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="comite-card" style="--comite-c:var(--danger);--comite-c-bg:var(--danger-bg);" onclick="showView('comites-brigada')">
+          <div class="comite-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 14 6 10z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></div>
+          <span class="badge b-warning" style="position:absolute;top:24px;right:24px;"><span class="dot"></span>En proceso</span>
+          <div class="comite-card-title">Brigada de emergencia</div>
+          <div class="comite-card-sub">Equipo de respuesta ante emergencias · Numeral 5.1.2</div>
+          <div class="comite-card-stats">
+            <div class="comite-card-stat"><b>8</b><span>Brigadistas</span></div>
+            <div class="comite-card-stat"><b>6/8</b><span>Capacitados</span></div>
+            <div class="comite-card-stat"><b>7/8</b><span>Dotados</span></div>
+          </div>
+          <div class="comite-card-cta">Ingresar <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPASST — detalle -->
+    <div class="view" id="view-comites-copasst">
+      <span class="back-link" onclick="showView('comites')">‹ Volver a Comités</span>
+      <div class="breadcrumb">SYC / Sistema de gestión SST / Comités / COPASST</div>
+      <div class="header"><div><h1>COPASST</h1><div class="subtitle">Comité Paritario de Seguridad y Salud en el Trabajo · Resuelve numerales 1.1.6 y 1.1.7</div></div><div class="header-actions"><button class="btn primary" onclick="abrirActaEditor('copasst')">+ Nueva acta</button></div></div>
+
+      <div class="comite-alert" id="alert-copasst" style="display:none;"></div>
 
       <div class="bottom-grid">
         <div class="panel">
           <div class="panel-head"><div class="panel-title">COPASST</div><span class="badge b-warning"><span class="dot"></span>En proceso</span></div>
           <div class="panel-sub">Numerales 1.1.6 y 1.1.7 · Periodo 2025–2027</div>
           <div class="worker-stat"><span>Integrantes activos</span><b>6</b></div>
-          <div class="worker-stat"><span>Actas registradas</span><b>7 / 12</b></div>
+          <div class="worker-stat"><span>Actas registradas</span><b id="kpi-actas-copasst">—</b></div>
           <div class="worker-stat"><span>Capacitación 50h</span><b>5 / 6</b></div>
-          <div class="worker-stat"><span>Próxima reunión</span><b>15 sep 2026</b></div>
+          <div class="worker-stat"><span>Próxima reunión</span><b>3 oct 2026</b></div>
         </div>
         <div class="panel">
-          <div class="panel-head"><div class="panel-title">Comité de Convivencia</div><span class="badge b-success"><span class="dot"></span>Cumple</span></div>
+          <div class="panel-head"><div class="panel-title">Integrantes</div></div>
+          <div class="panel-sub">Base para el formato de acta y la firma electrónica</div>
+          <div class="table-panel" style="border:none;margin:0;">
+            <table>
+              <thead><tr><th>Nombre</th><th>Documento</th><th>Rol en el comité</th><th>Sede</th></tr></thead>
+              <tbody id="integrantes-copasst"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Calendario de actividades</div></div>
+        <div class="panel-sub">Reuniones, capacitaciones e inspecciones del COPASST · haz clic en una actividad para ver su trazabilidad</div>
+        <div class="chrono" id="cal-copasst"></div>
+      </div>
+
+      <div class="header" style="margin-top:4px;">
+        <div><h1 style="font-size:16px;">Actas de reunión</h1><div class="subtitle">Formato estandarizado editable, con firma electrónica y trazabilidad de creación</div></div>
+      </div>
+      <div class="table-panel">
+        <table>
+          <thead><tr><th>Acta</th><th>Fecha</th><th>Hora</th><th>Creada por</th><th>Firmas</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="actas-copasst"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COCOLA — detalle -->
+    <div class="view" id="view-comites-cocola">
+      <span class="back-link" onclick="showView('comites')">‹ Volver a Comités</span>
+      <div class="breadcrumb">SYC / Sistema de gestión SST / Comités / COCOLA</div>
+      <div class="header"><div><h1>COCOLA</h1><div class="subtitle">Comité de Convivencia Laboral · Resuelve numeral 1.1.8</div></div><div class="header-actions"><button class="btn primary" onclick="abrirActaEditor('cocola')">+ Nueva acta</button></div></div>
+
+      <div class="comite-alert" id="alert-cocola" style="display:none;"></div>
+
+      <div class="bottom-grid">
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title">COCOLA</div><span class="badge b-success"><span class="dot"></span>Cumple</span></div>
           <div class="panel-sub">Numeral 1.1.8 · Periodo 2025–2027</div>
           <div class="worker-stat"><span>Integrantes activos</span><b>4</b></div>
-          <div class="worker-stat"><span>Actas registradas</span><b>9</b></div>
+          <div class="worker-stat"><span>Actas registradas</span><b id="kpi-actas-cocola">—</b></div>
           <div class="worker-stat"><span>Casos activos</span><b>1</b></div>
           <div class="worker-stat"><span>Acuerdos de confidencialidad</span><b>4 / 4</b></div>
         </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title">Integrantes</div></div>
+          <div class="panel-sub">Base para el formato de acta y la firma electrónica</div>
+          <div class="table-panel" style="border:none;margin:0;">
+            <table>
+              <thead><tr><th>Nombre</th><th>Documento</th><th>Rol en el comité</th><th>Sede</th></tr></thead>
+              <tbody id="integrantes-cocola"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Calendario de actividades</div></div>
+        <div class="panel-sub">Reuniones y seguimiento de casos de COCOLA · haz clic en una actividad para ver su trazabilidad</div>
+        <div class="chrono" id="cal-cocola"></div>
+      </div>
+
+      <div class="header" style="margin-top:4px;">
+        <div><h1 style="font-size:16px;">Actas de reunión</h1><div class="subtitle">Formato estandarizado editable, con firma electrónica y trazabilidad de creación</div></div>
+      </div>
+      <div class="table-panel">
+        <table>
+          <thead><tr><th>Acta</th><th>Fecha</th><th>Hora</th><th>Creada por</th><th>Firmas</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="actas-cocola"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Brigada de emergencia — detalle -->
+    <div class="view" id="view-comites-brigada">
+      <span class="back-link" onclick="showView('comites')">‹ Volver a Comités</span>
+      <div class="breadcrumb">SYC / Sistema de gestión SST / Comités / Brigada de emergencia</div>
+      <div class="header"><div><h1>Brigada de emergencia</h1><div class="subtitle">Equipo de respuesta ante emergencias · Resuelve numeral 5.1.2</div></div><div class="header-actions"><button class="btn primary" onclick="abrirActaEditor('brigada')">+ Nueva acta</button></div></div>
+
+      <div class="comite-alert" id="alert-brigada" style="display:none;"></div>
+
+      <div class="bottom-grid">
         <div class="panel">
           <div class="panel-head"><div class="panel-title">Brigada de emergencia</div><span class="badge b-warning"><span class="dot"></span>En proceso</span></div>
           <div class="panel-sub">Numeral 5.1.2</div>
@@ -1572,16 +1751,31 @@
           <div class="worker-stat"><span>Dotación entregada</span><b>7 / 8</b></div>
           <div class="worker-stat"><span>Último simulacro</span><b>28 jul 2026</b></div>
         </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title">Integrantes</div></div>
+          <div class="panel-sub">Base para el formato de acta y la firma electrónica</div>
+          <div class="table-panel" style="border:none;margin:0;">
+            <table>
+              <thead><tr><th>Nombre</th><th>Documento</th><th>Rol en el comité</th><th>Sede</th></tr></thead>
+              <tbody id="integrantes-brigada"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Calendario de actividades</div></div>
+        <div class="panel-sub">Simulacros, capacitaciones e inspecciones de dotación · haz clic en una actividad para ver su trazabilidad</div>
+        <div class="chrono" id="cal-brigada"></div>
+      </div>
+
+      <div class="header" style="margin-top:4px;">
+        <div><h1 style="font-size:16px;">Actas de reunión</h1><div class="subtitle">Formato estandarizado editable, con firma electrónica y trazabilidad de creación</div></div>
+      </div>
       <div class="table-panel">
         <table>
-          <thead><tr><th>Comité</th><th>Documento</th><th>Fecha</th><th>Estado</th></tr></thead>
-          <tbody>
-            <tr><td>COPASST</td><td>Acta N°07-2026</td><td class="p-name">5 ago</td><td><span class="badge b-success"><span class="dot"></span>Vigente</span></td></tr>
-            <tr><td>Convivencia</td><td>Acta de conciliación — caso 003</td><td class="p-name">26 jun</td><td><span class="badge b-success"><span class="dot"></span>Vigente</span></td></tr>
-            <tr><td>Brigada</td><td>Guion del simulacro vehicular</td><td class="p-name">11 may</td><td><span class="badge b-success"><span class="dot"></span>Vigente</span></td></tr>
-          </tbody>
+          <thead><tr><th>Acta</th><th>Fecha</th><th>Hora</th><th>Creada por</th><th>Firmas</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="actas-brigada"></tbody>
         </table>
       </div>
     </div>
@@ -2671,6 +2865,64 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="modal-acta-editor">
+    <div class="modal-box" style="max-width:860px;">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="acta-modal-titulo">Nueva acta</div>
+          <div class="modal-sub" id="acta-modal-sub">—</div>
+        </div>
+        <div class="modal-close" onclick="cerrarModal('modal-acta-editor')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+      </div>
+      <div class="modal-body">
+        <div class="acta-meta-row" id="acta-meta-row"></div>
+
+        <div class="acta-editor-doc" id="acta-editor-doc" contenteditable="true"></div>
+
+        <div class="acta-firmas-title">Firma electrónica de los integrantes</div>
+        <div class="acta-firmas-sub">Datos heredados de la conformación actual del comité · cada integrante firma con su propio usuario</div>
+        <div id="acta-firmas-list"></div>
+
+        <div class="wizard-nav" style="margin-top:20px;">
+          <button class="btn" onclick="cerrarModal('modal-acta-editor')" id="acta-btn-cancelar">Cancelar</button>
+          <div style="display:flex;gap:10px;">
+            <button class="btn" id="acta-btn-exportar" onclick="exportarActaActual()" style="display:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M6 3h8l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/></svg> Exportar PDF</button>
+            <button class="btn primary" id="acta-btn-guardar" onclick="guardarActa()">Guardar acta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-actividad-comite">
+    <div class="modal-box" style="max-width:640px;">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="act-modal-titulo">Actividad</div>
+          <div class="modal-sub" id="act-modal-sub">—</div>
+        </div>
+        <div class="modal-close" onclick="cerrarModal('modal-actividad-comite')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+      </div>
+      <div class="modal-body">
+        <div class="panel-title" style="margin-bottom:10px;">Trazabilidad</div>
+        <div class="chrono" id="act-trazabilidad" style="margin-bottom:18px;"></div>
+
+        <div class="detail-inline">
+          <div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Soportes</div>
+            <div id="act-soportes"></div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Reuniones vinculadas</div>
+            <div id="act-reuniones"></div>
+            <div style="font-size:12px;font-weight:700;margin:14px 0 8px;">Pruebas / evidencia</div>
+            <div id="act-pruebas"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="modal-doc-preview">
     <div class="modal-box" style="max-width:720px;">
       <div class="modal-head">
@@ -3075,6 +3327,281 @@
     document.getElementById('dp-meta').textContent = `${seed.tam} · Cargado el ${seed.fecha}`;
     document.getElementById('dp-body').innerHTML = `<div class="doc-preview-placeholder">${ICON_FILE.replace('width="18" height="18"','width="28" height="28"')}<div><b>${doc.nombre} — Sistemas y Computadores S.A.</b></div><div>Este mockup no incluye el archivo real de SYC; en producción aquí se mostraría el PDF o imagen cargado por el líder SST.</div></div>`;
     abrirModal('modal-doc-preview');
+  }
+
+  // ---- COMITÉS Y BRIGADA — integrantes, calendario de actividades y actas con firma electrónica ----
+  const USUARIO_SESION = { nombre: 'Kevin Arley', rol: 'Líder SST' };
+
+  const COMITES_DATA = {
+    copasst: {
+      nombre: 'COPASST',
+      nombreCompleto: 'Comité Paritario de Seguridad y Salud en el Trabajo',
+      integrantes: [
+        { nombre: 'Kevin Arley', documento: 'CC 1098765432', cargo: 'Presidente (representante empleador)', sede: 'Bucaramanga' },
+        { nombre: 'Harold Rein', documento: 'CC 91234567', cargo: 'Secretario (representante trabajadores)', sede: 'Bogotá' },
+        { nombre: 'Carolina Velandia', documento: 'CC 63456789', cargo: 'Principal (representante empleador)', sede: 'Bucaramanga' },
+        { nombre: 'Diego Pardo', documento: 'CC 1102345678', cargo: 'Principal (representante trabajadores)', sede: 'San Gil' },
+        { nombre: 'Mónica Rueda', documento: 'CC 1109876543', cargo: 'Suplente (representante empleador)', sede: 'San Gil' },
+        { nombre: 'Andrés Suárez', documento: 'CC 1234567890', cargo: 'Suplente (representante trabajadores)', sede: 'Neiva' },
+      ],
+      actividades: [
+        { id: 'c1', fecha: '3 oct 2026', dias: 11, titulo: 'Reunión ordinaria mensual', tipo: 'Reunión', estado: 'proxima' },
+        { id: 'c2', fecha: '18 sep 2026', dias: -4, titulo: 'Inspección conjunta de puesto de trabajo', tipo: 'Inspección', estado: 'vencida' },
+        { id: 'c3', fecha: '5 ago 2026', titulo: 'Reunión ordinaria — seguimiento de indicadores', tipo: 'Reunión', estado: 'realizada' },
+        { id: 'c4', fecha: '20 jul 2026', titulo: 'Capacitación de 50 horas — módulo 5', tipo: 'Capacitación', estado: 'realizada' },
+      ],
+    },
+    cocola: {
+      nombre: 'COCOLA',
+      nombreCompleto: 'Comité de Convivencia Laboral',
+      integrantes: [
+        { nombre: 'Carolina Velandia', documento: 'CC 63456789', cargo: 'Presidenta (representante empleador)', sede: 'Bucaramanga' },
+        { nombre: 'Laura Ramírez', documento: 'CC 1103456789', cargo: 'Secretaria (representante trabajadores)', sede: 'Bogotá' },
+        { nombre: 'Kevin Arley', documento: 'CC 1098765432', cargo: 'Suplente (representante empleador)', sede: 'Bucaramanga' },
+        { nombre: 'Carlos Gómez', documento: 'CC 1106789012', cargo: 'Suplente (representante trabajadores)', sede: 'Bucaramanga' },
+      ],
+      actividades: [
+        { id: 'v1', fecha: '6 oct 2026', dias: 14, titulo: 'Reunión trimestral ordinaria', tipo: 'Reunión', estado: 'proxima' },
+        { id: 'v2', fecha: '30 sep 2026', dias: 8, titulo: 'Seguimiento caso 003 — acuerdo de confidencialidad', tipo: 'Seguimiento de caso', estado: 'proxima' },
+        { id: 'v3', fecha: '26 jun 2026', titulo: 'Reunión extraordinaria — caso 003', tipo: 'Reunión', estado: 'realizada' },
+        { id: 'v4', fecha: '14 abr 2026', titulo: 'Capacitación Ley 1010 de 2006 (acoso laboral)', tipo: 'Capacitación', estado: 'realizada' },
+      ],
+    },
+    brigada: {
+      nombre: 'Brigada de emergencia',
+      nombreCompleto: 'Brigada de emergencia',
+      integrantes: [
+        { nombre: 'Harold Rein', documento: 'CC 91234567', cargo: 'Líder de brigada', sede: 'Bucaramanga' },
+        { nombre: 'Diego Pardo', documento: 'CC 1102345678', cargo: 'Brigadista — primeros auxilios', sede: 'San Gil' },
+        { nombre: 'Andrés Suárez', documento: 'CC 1234567890', cargo: 'Brigadista — contraincendios', sede: 'Neiva' },
+        { nombre: 'Mónica Rueda', documento: 'CC 1109876543', cargo: 'Brigadista — evacuación', sede: 'San Gil' },
+        { nombre: 'Carlos Gómez', documento: 'CC 1106789012', cargo: 'Brigadista — primeros auxilios', sede: 'Bucaramanga' },
+        { nombre: 'Laura Ramírez', documento: 'CC 1103456789', cargo: 'Brigadista — evacuación', sede: 'Bogotá' },
+        { nombre: 'Juan Pérez', documento: 'CC 91876543', cargo: 'Brigadista — contraincendios', sede: 'Bucaramanga' },
+        { nombre: 'Carolina Velandia', documento: 'CC 63456789', cargo: 'Brigadista — evacuación', sede: 'Bucaramanga' },
+      ],
+      actividades: [
+        { id: 'b1', fecha: '25 sep 2026', dias: 3, titulo: 'Capacitación en primeros auxilios', tipo: 'Capacitación', estado: 'proxima' },
+        { id: 'b2', fecha: '10 oct 2026', dias: 18, titulo: 'Simulacro general de evacuación', tipo: 'Simulacro', estado: 'proxima' },
+        { id: 'b3', fecha: '28 jul 2026', titulo: 'Simulacro vehicular', tipo: 'Simulacro', estado: 'realizada' },
+        { id: 'b4', fecha: '15 jun 2026', titulo: 'Inspección de dotación y equipos contraincendios', tipo: 'Inspección', estado: 'realizada' },
+      ],
+    },
+  };
+
+  // Traza de cada actividad — reuniones, soportes y pruebas ya cargadas (demo).
+  const ACTIVIDAD_TRAZA = {
+    c1: { traza: [{ estado: 'pending', fecha: 'Programada', texto: 'Convocatoria enviada a los 6 integrantes' }], soportes: ['Orden del día'], reuniones: ['Se generará el acta al finalizar la reunión'], pruebas: [] },
+    c2: { traza: [{ estado: 'overdue', fecha: 'Venció hace 4 días', texto: 'Inspección aún sin ejecutar — reprogramar' }], soportes: ['Formato de inspección PR-RH-12-SST'], reuniones: [], pruebas: [] },
+    c3: { traza: [{ estado: 'done', fecha: '5 ago 2026', texto: 'Reunión realizada y acta N°07-2026 firmada' }], soportes: ['Convocatoria', 'Orden del día'], reuniones: ['Acta N°07-2026'], pruebas: ['Lista de asistencia firmada'] },
+    c4: { traza: [{ estado: 'done', fecha: '20 jul 2026', texto: 'Capacitación completada — 5 de 6 integrantes' }], soportes: ['Presentación módulo 5'], reuniones: [], pruebas: ['Certificado de asistencia (5)'] },
+    v1: { traza: [{ estado: 'pending', fecha: 'Programada', texto: 'Convocatoria pendiente de envío' }], soportes: ['Orden del día'], reuniones: [], pruebas: [] },
+    v2: { traza: [{ estado: 'pending', fecha: 'En seguimiento', texto: 'Segundo seguimiento al acuerdo de confidencialidad del caso 003' }], soportes: ['Acuerdo de confidencialidad firmado'], reuniones: ['Acta de conciliación — caso 003'], pruebas: [] },
+    v3: { traza: [{ estado: 'done', fecha: '26 jun 2026', texto: 'Reunión extraordinaria realizada, acuerdo de conciliación firmado' }], soportes: ['Queja inicial (confidencial)'], reuniones: ['Acta de conciliación — caso 003'], pruebas: ['Acuerdo de confidencialidad firmado (4)'] },
+    v4: { traza: [{ estado: 'done', fecha: '14 abr 2026', texto: 'Capacitación completada — 4 de 4 integrantes' }], soportes: ['Presentación Ley 1010 de 2006'], reuniones: [], pruebas: ['Certificado de asistencia (4)'] },
+    b1: { traza: [{ estado: 'pending', fecha: 'En 3 días', texto: 'Instructor confirmado, faltan 2 brigadistas por confirmar asistencia' }], soportes: ['Programa de capacitación'], reuniones: [], pruebas: [] },
+    b2: { traza: [{ estado: 'pending', fecha: 'Programado', texto: 'Guion del simulacro en elaboración' }], soportes: [], reuniones: [], pruebas: [] },
+    b3: { traza: [{ estado: 'done', fecha: '28 jul 2026', texto: 'Simulacro ejecutado, tiempo de evacuación 4m 12s' }], soportes: ['Guion del simulacro vehicular'], reuniones: [], pruebas: ['Registro fotográfico (8)', 'Informe de resultados'] },
+    b4: { traza: [{ estado: 'done', fecha: '15 jun 2026', texto: 'Inspección completada — 7 de 8 elementos vigentes' }], soportes: ['Formato de inspección de dotación'], reuniones: [], pruebas: ['Registro fotográfico (5)'] },
+  };
+
+  const ORDEN_DIA_COMITE = {
+    copasst: ['Verificación de quórum', 'Lectura y aprobación del acta anterior', 'Seguimiento a indicadores de accidentalidad', 'Estado de inspecciones y hallazgos pendientes', 'Avance del plan de capacitación de 50 horas', 'Compromisos y cierre'],
+    cocola: ['Verificación de quórum', 'Lectura y aprobación del acta anterior', 'Revisión de casos reportados (tratamiento confidencial)', 'Seguimiento a acuerdos de confidencialidad vigentes', 'Avance del plan de capacitación en convivencia y Ley 1010 de 2006', 'Compromisos y cierre'],
+    brigada: ['Verificación de quórum', 'Revisión de dotación y equipos contraincendios', 'Cronograma de simulacros del periodo', 'Avance de capacitación en primeros auxilios y evacuación', 'Compromisos y cierre'],
+  };
+
+  function plantillaActa(comiteId){
+    const c = COMITES_DATA[comiteId];
+    const orden = ORDEN_DIA_COMITE[comiteId].map(i => `<li>${i}</li>`).join('');
+    return `<h3>1. Objetivo</h3>
+      <p>Dejar constancia del desarrollo de la reunión del ${c.nombreCompleto}, conforme a lo establecido en el Decreto 1072 de 2015.</p>
+      <h3>2. Orden del día</h3>
+      <ol>${orden}</ol>
+      <h3>3. Desarrollo de la reunión</h3>
+      <p>[Editar aquí el desarrollo de cada punto tratado en la reunión...]</p>
+      <h3>4. Compromisos</h3>
+      <table style="width:100%;border-collapse:collapse;"><thead><tr><th>Compromiso</th><th>Responsable</th><th>Fecha</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>`;
+  }
+
+  // Historial de actas — trazable: fecha, hora, creado por, rol (ver ACTA_EDITOR_STATE / guardarActa).
+  let ACTAS_COMITE = [
+    { id: 'copasst-seed-1', comiteId: 'copasst', numero: 7, fecha: '5 ago 2026', hora: '09:14', creadoPor: 'Kevin Arley', rol: 'Líder SST', estado: 'Firmada', firmas: COMITES_DATA.copasst.integrantes.map(i => ({ ...i, firmado: true })) },
+    { id: 'cocola-seed-1', comiteId: 'cocola', numero: 3, fecha: '26 jun 2026', hora: '15:40', creadoPor: 'Carolina Velandia', rol: 'Presidenta COCOLA', estado: 'Firmada', firmas: COMITES_DATA.cocola.integrantes.map(i => ({ ...i, firmado: true })) },
+    { id: 'brigada-seed-1', comiteId: 'brigada', numero: 4, fecha: '11 may 2026', hora: '11:05', creadoPor: 'Harold Rein', rol: 'Líder de brigada', estado: 'Firmada', firmas: COMITES_DATA.brigada.integrantes.map(i => ({ ...i, firmado: true })) },
+  ];
+
+  let ACTA_EDITOR_STATE = null;
+
+  function renderComiteDetalle(comiteId){
+    renderIntegrantesComite(comiteId);
+    renderAlertaComite(comiteId);
+    renderCalendarioComite(comiteId);
+    renderHistorialActas(comiteId);
+  }
+
+  function renderIntegrantesComite(comiteId){
+    const el = document.getElementById('integrantes-' + comiteId);
+    if(!el) return;
+    el.innerHTML = COMITES_DATA[comiteId].integrantes.map(i =>
+      `<tr><td class="p-name">${i.nombre}</td><td class="p-name">${i.documento}</td><td>${i.cargo}</td><td class="p-name">${i.sede}</td></tr>`
+    ).join('');
+  }
+
+  function renderAlertaComite(comiteId){
+    const el = document.getElementById('alert-' + comiteId);
+    if(!el) return;
+    const proximas = COMITES_DATA[comiteId].actividades.filter(a => a.estado === 'proxima').sort((a,b) => a.dias - b.dias);
+    if(!proximas.length){ el.style.display = 'none'; return; }
+    const a = proximas[0];
+    el.style.display = 'flex';
+    el.onclick = () => abrirActividadComite(comiteId, a.id);
+    el.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17.5h.01"/><path d="M10.3 3.9L2.6 18a1.5 1.5 0 0 0 1.3 2.3h16.2a1.5 1.5 0 0 0 1.3-2.3L13.7 3.9a1.5 1.5 0 0 0-2.6 0z"/></svg>
+      <div><div class="comite-alert-text"><b>Próximo evento en ${a.dias} días</b> · ${a.titulo}</div><div class="comite-alert-sub">${a.fecha} · ${a.tipo}</div></div>`;
+  }
+
+  function renderCalendarioComite(comiteId){
+    const el = document.getElementById('cal-' + comiteId);
+    if(!el) return;
+    const orden = { vencida: 0, proxima: 1, realizada: 2 };
+    const claseEstado = { vencida: 'overdue', proxima: 'pending', realizada: 'done' };
+    const actividades = COMITES_DATA[comiteId].actividades.slice().sort((a,b) => orden[a.estado] - orden[b.estado]);
+    el.innerHTML = actividades.map(a =>
+      `<div class="chrono-item ${claseEstado[a.estado]} clickable" onclick="abrirActividadComite('${comiteId}','${a.id}')">
+        <div class="chrono-date">${a.fecha}</div>
+        <div class="chrono-text"><b>${a.titulo}</b><span class="actividad-tag">${a.tipo}</span></div>
+      </div>`
+    ).join('');
+  }
+
+  function abrirActividadComite(comiteId, actId){
+    const a = COMITES_DATA[comiteId].actividades.find(x => x.id === actId);
+    const t = ACTIVIDAD_TRAZA[actId] || { traza: [], soportes: [], reuniones: [], pruebas: [] };
+    document.getElementById('act-modal-titulo').textContent = a.titulo;
+    document.getElementById('act-modal-sub').textContent = `${COMITES_DATA[comiteId].nombre} · ${a.tipo} · ${a.fecha}`;
+    document.getElementById('act-trazabilidad').innerHTML = t.traza.map(x =>
+      `<div class="chrono-item ${x.estado}"><div class="chrono-date">${x.fecha}</div><div class="chrono-text">${x.texto}</div></div>`
+    ).join('') || '<div class="chrono-item"><div class="chrono-text">Sin trazabilidad registrada.</div></div>';
+    const listaOVacio = (arr, vacioTxt) => arr.length
+      ? arr.map(n => `<div class="detail-doc-item"><div class="di-icon">${ICON_FILE}</div><div>${n}</div></div>`).join('')
+      : `<div style="font-size:11.5px;color:var(--text-secondary);">${vacioTxt}</div>`;
+    document.getElementById('act-soportes').innerHTML = listaOVacio(t.soportes, 'Sin soportes cargados aún.');
+    document.getElementById('act-reuniones').innerHTML = listaOVacio(t.reuniones, 'Sin reuniones vinculadas.');
+    document.getElementById('act-pruebas').innerHTML = listaOVacio(t.pruebas, 'Sin pruebas cargadas aún.');
+    abrirModal('modal-actividad-comite');
+  }
+
+  function renderFirmasEditor(){
+    const el = document.getElementById('acta-firmas-list');
+    const modo = ACTA_EDITOR_STATE.modo;
+    el.innerHTML = ACTA_EDITOR_STATE.firmas.map((f, idx) => {
+      const btn = f.firmado
+        ? `<button class="acta-firma-btn signed" disabled><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M4.5 12.5l5 5 10-10.5"/></svg> Firmado${f.hora ? ' · ' + f.hora : ''}</button>`
+        : (modo === 'nuevo'
+          ? `<button class="acta-firma-btn" onclick="toggleFirmaActa(${idx})">Firmar</button>`
+          : `<button class="acta-firma-btn" disabled>Sin firmar</button>`);
+      return `<div class="acta-firma-row">
+        <div class="acta-firma-info"><div class="acta-firma-name">${f.nombre}</div><div class="acta-firma-sub">${f.documento} · ${f.cargo} · ${f.sede}</div></div>
+        ${btn}
+      </div>`;
+    }).join('');
+  }
+
+  function toggleFirmaActa(idx){
+    if(ACTA_EDITOR_STATE.modo !== 'nuevo') return;
+    const f = ACTA_EDITOR_STATE.firmas[idx];
+    f.firmado = true;
+    f.hora = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+    renderFirmasEditor();
+  }
+
+  function abrirActaEditor(comiteId){
+    const c = COMITES_DATA[comiteId];
+    const n = ACTAS_COMITE.filter(a => a.comiteId === comiteId).length + 1;
+    ACTA_EDITOR_STATE = { comiteId, modo: 'nuevo', actaId: null, firmas: c.integrantes.map(i => ({ ...i, firmado: false, hora: null })) };
+    document.getElementById('acta-modal-titulo').textContent = 'Nueva acta — ' + c.nombre;
+    document.getElementById('acta-modal-sub').textContent = 'Formato estandarizado, editable antes de guardar';
+    document.getElementById('acta-meta-row').innerHTML = `
+      <div class="acta-meta-field"><span>Comité</span><b>${c.nombre}</b></div>
+      <div class="acta-meta-field"><span>N° de acta</span><b>${n}-2026</b></div>
+      <div class="acta-meta-field"><span>Fecha</span><b>${new Date().toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' })}</b></div>
+      <div class="acta-meta-field"><span>Creada por</span><b>${USUARIO_SESION.nombre} · ${USUARIO_SESION.rol}</b></div>`;
+    const doc = document.getElementById('acta-editor-doc');
+    doc.contentEditable = 'true';
+    doc.innerHTML = plantillaActa(comiteId);
+    renderFirmasEditor();
+    document.getElementById('acta-btn-cancelar').textContent = 'Cancelar';
+    document.getElementById('acta-btn-guardar').style.display = '';
+    document.getElementById('acta-btn-exportar').style.display = 'none';
+    abrirModal('modal-acta-editor');
+  }
+
+  function guardarActa(){
+    const s = ACTA_EDITOR_STATE;
+    const c = COMITES_DATA[s.comiteId];
+    const n = ACTAS_COMITE.filter(a => a.comiteId === s.comiteId).length + 1;
+    const now = new Date();
+    ACTAS_COMITE.unshift({
+      id: s.comiteId + '-' + now.getTime(),
+      comiteId: s.comiteId,
+      numero: n,
+      fecha: now.toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' }),
+      hora: now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' }),
+      creadoPor: USUARIO_SESION.nombre,
+      rol: USUARIO_SESION.rol,
+      contenido: document.getElementById('acta-editor-doc').innerHTML,
+      firmas: s.firmas,
+      estado: s.firmas.every(f => f.firmado) ? 'Firmada' : 'Pendiente de firmas',
+    });
+    cerrarModal('modal-acta-editor');
+    renderHistorialActas(s.comiteId);
+    alert('Acta guardada. Quedó registrada en el historial de ' + c.nombre + ' con trazabilidad de creación (fecha, hora, autor y rol).');
+  }
+
+  function renderHistorialActas(comiteId){
+    const el = document.getElementById('actas-' + comiteId);
+    if(!el) return;
+    const actas = ACTAS_COMITE.filter(a => a.comiteId === comiteId);
+    const kpi = document.getElementById('kpi-actas-' + comiteId);
+    if(kpi) kpi.textContent = actas.length;
+    el.innerHTML = actas.map(a => {
+      const firmadas = a.firmas.filter(f => f.firmado).length;
+      const badge = a.estado === 'Firmada' ? 'b-success' : 'b-warning';
+      return `<tr>
+        <td>Acta N°${a.numero}-2026</td>
+        <td class="p-name">${a.fecha}</td>
+        <td class="p-name">${a.hora}</td>
+        <td><div class="person"><div class="avatar">${a.creadoPor.split(' ').map(w=>w[0]).slice(0,2).join('')}</div><span class="p-name">${a.creadoPor} · ${a.rol}</span></div></td>
+        <td class="p-name">${firmadas} / ${a.firmas.length}</td>
+        <td><span class="badge ${badge}"><span class="dot"></span>${a.estado}</span></td>
+        <td><button class="mini-btn" style="margin-top:0;" onclick="verActa('${a.id}')">Ver / Exportar</button></td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="7" class="p-name">Aún no hay actas registradas para este comité.</td></tr>';
+  }
+
+  function verActa(actaId){
+    const a = ACTAS_COMITE.find(x => x.id === actaId);
+    const c = COMITES_DATA[a.comiteId];
+    ACTA_EDITOR_STATE = { comiteId: a.comiteId, modo: 'ver', actaId, firmas: a.firmas };
+    document.getElementById('acta-modal-titulo').textContent = 'Acta N°' + a.numero + '-2026 — ' + c.nombre;
+    document.getElementById('acta-modal-sub').textContent = `Creada el ${a.fecha} a las ${a.hora} por ${a.creadoPor} (${a.rol})`;
+    document.getElementById('acta-meta-row').innerHTML = `
+      <div class="acta-meta-field"><span>Comité</span><b>${c.nombre}</b></div>
+      <div class="acta-meta-field"><span>N° de acta</span><b>${a.numero}-2026</b></div>
+      <div class="acta-meta-field"><span>Fecha</span><b>${a.fecha}</b></div>
+      <div class="acta-meta-field"><span>Estado</span><b>${a.estado}</b></div>`;
+    const doc = document.getElementById('acta-editor-doc');
+    doc.contentEditable = 'false';
+    doc.innerHTML = a.contenido || plantillaActa(a.comiteId);
+    renderFirmasEditor();
+    document.getElementById('acta-btn-cancelar').textContent = 'Cerrar';
+    document.getElementById('acta-btn-guardar').style.display = 'none';
+    document.getElementById('acta-btn-exportar').style.display = '';
+    abrirModal('modal-acta-editor');
+  }
+
+  function exportarActaActual(){
+    alert('Simulación: aquí se generaría el PDF del acta con Puppeteer usando esta misma plantilla, incluyendo las firmas electrónicas registradas.');
   }
 
   // ---- ESTÁNDARES MÍNIMOS APLICABLES (Resolución 0312 de 2019), según trabajadores + clase de riesgo ----
@@ -3646,6 +4173,9 @@
     if(name === 'pesv-indicadores') renderIndicadoresPesv();
     if(name === 'matriz') renderIpevrFull();
     if(name === 'config') renderDocList('cfg-doc-list', 'config');
+    if(name === 'comites-copasst') renderComiteDetalle('copasst');
+    if(name === 'comites-cocola') renderComiteDetalle('cocola');
+    if(name === 'comites-brigada') renderComiteDetalle('brigada');
   }
   let ipevrFullListo = false;
   function renderIpevrFull(){
