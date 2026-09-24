@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: <Módulo> — Nexo SG-SST
+  version: 0.1.0
+  description: >
+    Contrato del módulo <modulo>. Cada schema de este archivo se traduce 1:1
+    a un DTO en backend/src/<modulo>/dto/ — no se agregan ni se quitan campos
+    durante Construction sin volver primero a este archivo.
+
+paths:
+  /api/v1/<modulo>:
+    get:
+      summary: Listar <recurso>
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/<Recurso>"
+    post:
+      summary: Crear <recurso>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Crear<Recurso>Dto"
+      responses:
+        "201":
+          description: Creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/<Recurso>"
+        "400":
+          description: Datos inválidos
+        "404":
+          description: Dependencia no encontrada (ej. organización/sede)
+
+components:
+  schemas:
+    <Recurso>:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+
+    Crear<Recurso>Dto:
+      type: object
+      required: []
+      properties: {}

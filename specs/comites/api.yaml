@@ -1,0 +1,363 @@
+openapi: 3.0.3
+info:
+  title: Comités y equipos SST — Nexo
+  version: 0.1.0
+  description: >
+    Contrato del módulo comites (COPASST, COCOLA, Brigada de emergencia).
+    Resuelve numerales 1.1.6, 1.1.7, 1.1.8 y 5.1.2 del Decreto 1072 de 2015.
+    Cada schema se traduce 1:1 a un DTO en backend/src/comites/dto/.
+
+paths:
+  /api/v1/organizaciones/{organizacionId}/comites:
+    get:
+      summary: Listar los comités de una organización (hub de Comités)
+      parameters:
+        - name: organizacionId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/ComiteResumen" }
+
+  /api/v1/comites/{comiteId}:
+    get:
+      summary: Detalle de un comité (integrantes, calendario, alerta, KPIs)
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ComiteDetalle" }
+        "404": { description: Comité no encontrado }
+
+  /api/v1/comites/{comiteId}/integrantes:
+    get:
+      summary: Listar integrantes vigentes del comité
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Integrante" }
+    post:
+      summary: Agregar integrante (hereda datos del Trabajador referenciado)
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CrearIntegranteDto" }
+      responses:
+        "201":
+          description: Creado
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Integrante" }
+        "404": { description: Trabajador referenciado no existe }
+
+  /api/v1/comites/{comiteId}/integrantes/{integranteId}/baja:
+    patch:
+      summary: Dar de baja a un integrante (vigente = false)
+      description: >
+        Efecto en cascada [decisión de negocio 2026-09-23]: elimina por completo
+        cualquier Firma sin firmar de este integrante en Actas con estado
+        "pendiente_firmas" — tanto del documento como del registro en base de
+        datos — y recalcula Acta.estado sobre las Firmas restantes. No afecta
+        Firmas de Actas ya en estado "firmada" (documento legal inmutable).
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: integranteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Integrante dado de baja, con el detalle de lo eliminado en cascada
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BajaIntegranteResultado" }
+        "404": { description: Integrante no encontrado en este comité }
+
+  /api/v1/comites/{comiteId}/actividades:
+    get:
+      summary: Calendario de actividades del comité, con alerta de próximo evento
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CalendarioComite" }
+
+  /api/v1/actividades/{actividadId}:
+    get:
+      summary: Trazabilidad de una actividad (soportes, reuniones vinculadas, pruebas)
+      parameters:
+        - name: actividadId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ActividadDetalle" }
+        "404": { description: Actividad no encontrada }
+
+  /api/v1/comites/{comiteId}/actas:
+    get:
+      summary: Historial de actas del comité (trazable — fecha, hora, autor, rol)
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/ActaResumen" }
+    post:
+      summary: Guardar una nueva acta (genera Firmas pendientes para cada integrante vigente)
+      parameters:
+        - name: comiteId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CrearActaDto" }
+      responses:
+        "201":
+          description: Creada — creadoPorUsuarioId/Rol/creadoEn se asignan en el servidor
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Acta" }
+
+  /api/v1/actas/{actaId}:
+    get:
+      summary: Ver / exportar un acta (contenido + estado de firmas)
+      parameters:
+        - name: actaId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Acta" }
+        "404": { description: Acta no encontrada }
+
+  /api/v1/actas/{actaId}/firmas/{firmaId}:
+    patch:
+      summary: Firmar electrónicamente (solo el propio integrante autenticado)
+      parameters:
+        - name: actaId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: firmaId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Firma registrada — si es la última pendiente, Acta pasa a "firmada"
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Firma" }
+        "403": { description: El usuario autenticado no corresponde a este integrante }
+        "409": { description: La firma ya estaba registrada }
+
+components:
+  schemas:
+    ComiteResumen:
+      type: object
+      required: [id, tipo, nombre, estado]
+      properties:
+        id: { type: string, format: uuid }
+        tipo: { type: string, enum: [COPASST, COCOLA, BRIGADA] }
+        nombre: { type: string, example: "COPASST" }
+        estado: { type: string, enum: [en_proceso, cumple] }
+        integrantesActivos: { type: integer }
+        actasRegistradas: { type: integer }
+        proximoEventoDias: { type: integer, nullable: true }
+
+    ComiteDetalle:
+      allOf:
+        - $ref: "#/components/schemas/ComiteResumen"
+        - type: object
+          properties:
+            periodoInicio: { type: string, format: date }
+            periodoFin: { type: string, format: date }
+            integrantes:
+              type: array
+              items: { $ref: "#/components/schemas/Integrante" }
+
+    Integrante:
+      type: object
+      required: [id, trabajadorId, nombre, documento, cargo, sede, vigente]
+      properties:
+        id: { type: string, format: uuid }
+        trabajadorId: { type: string, format: uuid }
+        nombre: { type: string }
+        documento: { type: string, example: "CC 1098765432" }
+        cargo: { type: string, example: "Presidente (representante empleador)" }
+        sede: { type: string, example: "Bucaramanga" }
+        vigente: { type: boolean }
+
+    CrearIntegranteDto:
+      type: object
+      required: [trabajadorId, cargo]
+      properties:
+        trabajadorId: { type: string, format: uuid }
+        cargo: { type: string }
+
+    BajaIntegranteResultado:
+      type: object
+      required: [integranteId, vigente, firmasEliminadas]
+      properties:
+        integranteId: { type: string, format: uuid }
+        vigente: { type: boolean, enum: [false] }
+        firmasEliminadas:
+          type: array
+          description: Firmas pendientes borradas por la baja (actas ya "firmada" no aparecen aquí)
+          items:
+            type: object
+            properties:
+              actaId: { type: string, format: uuid }
+              firmaId: { type: string, format: uuid }
+              actaEstadoResultante: { type: string, enum: [pendiente_firmas, firmada] }
+
+    CalendarioComite:
+      type: object
+      properties:
+        proximoEvento:
+          allOf:
+            - $ref: "#/components/schemas/Actividad"
+          nullable: true
+        actividades:
+          type: array
+          items: { $ref: "#/components/schemas/Actividad" }
+
+    Actividad:
+      type: object
+      required: [id, tipo, fecha, titulo, estado]
+      properties:
+        id: { type: string, format: uuid }
+        tipo: { type: string, enum: [reunion, capacitacion, inspeccion, simulacro, seguimiento_caso] }
+        titulo: { type: string }
+        fecha: { type: string, format: date }
+        estado: { type: string, enum: [proxima, vencida, realizada] }
+        diasRestantes: { type: integer, nullable: true, description: "solo si estado = proxima, calculado en el servidor" }
+
+    ActividadDetalle:
+      allOf:
+        - $ref: "#/components/schemas/Actividad"
+        - type: object
+          properties:
+            trazabilidad:
+              type: array
+              items:
+                type: object
+                properties:
+                  fecha: { type: string }
+                  texto: { type: string }
+            soportes:
+              type: array
+              items: { $ref: "#/components/schemas/Soporte" }
+            reunionesVinculadas:
+              type: array
+              items: { $ref: "#/components/schemas/Soporte" }
+            pruebas:
+              type: array
+              items: { $ref: "#/components/schemas/Soporte" }
+
+    Soporte:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        nombre: { type: string }
+        archivoUrl: { type: string, nullable: true }
+
+    ActaResumen:
+      type: object
+      required: [id, numero, fecha, hora, creadoPorNombre, creadoPorRol, estado, firmasCompletas, firmasTotal]
+      properties:
+        id: { type: string, format: uuid }
+        numero: { type: integer }
+        fecha: { type: string, format: date }
+        hora: { type: string, example: "09:14" }
+        creadoPorNombre: { type: string }
+        creadoPorRol: { type: string }
+        estado: { type: string, enum: [pendiente_firmas, firmada] }
+        firmasCompletas: { type: integer }
+        firmasTotal: { type: integer }
+
+    Acta:
+      allOf:
+        - $ref: "#/components/schemas/ActaResumen"
+        - type: object
+          properties:
+            contenidoHtml: { type: string }
+            firmas:
+              type: array
+              items: { $ref: "#/components/schemas/Firma" }
+
+    Firma:
+      type: object
+      required: [id, integranteId, nombre, documento, cargo, sede, firmado]
+      properties:
+        id: { type: string, format: uuid }
+        integranteId: { type: string, format: uuid }
+        nombre: { type: string }
+        documento: { type: string }
+        cargo: { type: string }
+        sede: { type: string }
+        firmado: { type: boolean }
+        firmadoEn: { type: string, format: date-time, nullable: true }
+
+    CrearActaDto:
+      type: object
+      required: [contenidoHtml]
+      properties:
+        contenidoHtml:
+          type: string
+          description: HTML del editor tipo Word (objetivo, orden del día, desarrollo, compromisos)
